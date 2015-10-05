@@ -1,0 +1,14 @@
+$TTL 10800
+
+; Smash together year (4), month (2), day (2), then serial (2)
+@       IN      SOA     ns0.nyaa.com. hostmaster.nyaa.com. (
+                        2015100400      ; serial
+                        10800           ; refresh, seconds
+                        1800            ; retry, seconds
+                        1209600         ; expire, seconds
+                        10800)          ; TTL, seconds. Needs to be LOW for DYNDNS
+
+@       IN      NS      ns0.nyaa.moe.
+
+1       IN      PTR     nyaa.moe.
+2       IN      PTR     tsun.nyaa.moe.
