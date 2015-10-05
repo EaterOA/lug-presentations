@@ -47,6 +47,32 @@ What is DNS?
 * Hierarchical, decentralized system of name servers
   * You -> Router -> ISP -> TLD -> SLD -> ...
                 </script></section>
+                <section data-markdown><script type="text/template">
+Demo with dig
+===
+                </script></section>
+                <section data-markdown><script type="text/template">
+Types of records
+---
+
+* A: hostname -> ip addr
+* CNAME: hostname -> hostname
+* NS: hostname -> hostname of authoritative name server
+* ...[Wikipedia][0] for the rest
+
+[0]: https://en.wikipedia.org/wiki/List_of_DNS_record_types
+                </script></section>
+                <section data-markdown><script type="text/template">
+DNS resolution process
+---
+
+What happens when `gethostbyname` is invoked:
+
+1. Your machine looks up configured DNS server (`/etc/resolv.conf` on Linux)
+2. Queries server
+  * __If__ server knows answer, replies _non-authoritatively_
+  * __Else__ server recursively queries root servers, TLD, ..., authoritative servers
+                </script></section>
             </div>
         </div>
         <script src="lib/js/head.min.js"></script>
