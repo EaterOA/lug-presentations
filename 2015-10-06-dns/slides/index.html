@@ -18,10 +18,15 @@
         <div class="reveal">
             <div class="slides">
                 <section data-markdown><script type="text/template">
+_LUG@UCLA tech talk_
+---
+
 Domain Name System
 ===
 
 ___Presented by Vincent Wong___
+
+lain@linux.ucla.edu
                 </script></section>
                 <section data-markdown><script type="text/template">
 About 
@@ -74,6 +79,27 @@ What happens when `gethostbyname` is invoked:
                 </script></section>
                 <section data-markdown><script type="text/template">
 # Demo with bind9
+                </script></section>
+                <section data-markdown><script type="text/template">
+Reverse DNS
+---
+
+* Translates ip address to hostname
+* How it works:
+  * Take address, reverse the octals (`1.2.3.4` -> `4.3.2.1`)
+  * Append `.in-addr.arpa` to reversed address
+  * Query for PTR record (e.g. `4.3.2.1.in-addr.arpa`)
+                </script></section>
+                <section data-markdown><script type="text/template">
+Glue records
+---
+
+* How to get address of `nameserver.example.com`?
+* Need to find ip of nameserver in order to ask nameserver
+* So `example.com` has a glue record for `nameserver.example.com`; it also tells you its address.
+                </script></section>
+                <section data-markdown><script type="text/template">
+# Thanks for coming!
                 </script></section>
             </div>
         </div>

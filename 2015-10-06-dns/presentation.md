@@ -26,6 +26,10 @@ Point out the SERVER field; that's the router (recursive resolver / cacher).
 
 Continue w/ slides and draw diagram of resolution process.
 
+Demo with dig trace:
+
+    dig linux.ucla.edu +trace
+
 Demo with bind9.
 
     dig www.wikipedia.org @<ip of container>
@@ -41,3 +45,12 @@ Change db.custom, restart service.
 Change recursion all to none, restart service.
 
     dig www.wikipedia.org @<ip of container>
+
+Go back to slides to talk about reverse DNS. Go back to named.conf to talk
+about reverse zone.
+
+    dig -x 172.17.0.1 @<ip of container>
+
+Go back to slides to talk about glue records
+
+    dig linux.ucla.edu +trace +additional
