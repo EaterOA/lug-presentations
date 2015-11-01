@@ -15,14 +15,14 @@ html * {
  * GLOBAL STYLES
  *********************************************/
 body {
-  background: #002b36;
-  background-color: #002b36; }
+  background: #03556E;
+  background-color: #03556E; }
 
 .reveal {
   font-family: 'Lato', sans-serif;
   font-size: 36px;
   font-weight: normal;
-  color: #93a1a1; }
+  color: #A9CED4; }
 
 ::selection {
   color: #fff;
@@ -75,11 +75,12 @@ body {
   max-height: 95%; }
 
 .reveal strong, .reveal b {
-  color: #a3b0cc;
+  color: #44C1EB;
   font-weight: bold; }
 
 .reveal em {
-  font-style: italic; }
+  font-style: italic;
+  color: #8ECBDE; }
 
 .reveal ol, .reveal dl, .reveal ul {
   display: inline-block;

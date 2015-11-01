@@ -1,6 +1,7 @@
 Preparation
 ===
 
+* set up LAN
 * start gotty server
 * start python http.server
 
