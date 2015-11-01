@@ -10,3 +10,5 @@ Confirm that all of the above works
 Presentation
 ===
 
+Daily life: open up libreoffice writer and stea:
+Package management: open up software manager, install gparted through apt-get

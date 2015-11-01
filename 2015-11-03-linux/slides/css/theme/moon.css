@@ -80,7 +80,7 @@ body {
 
 .reveal em {
   font-style: italic;
-  color: #8ECBDE; }
+  color: #7CCBF2; }
 
 .reveal ol, .reveal dl, .reveal ul {
   display: inline-block;
@@ -90,9 +90,12 @@ body {
 .reveal ol {
   counter-reset: item; }
 
+.reveal li {
+  margin: 0.25em 0;
+}
+
 .reveal ol > li {
   counter-increment: item;
-  margin: 0;
   padding: 0 0 0 2em;
   text-indent: -2em;
   list-style-type: none; }
