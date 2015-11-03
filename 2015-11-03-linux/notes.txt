@@ -1,4 +1,0 @@
-package management
-show different environments, customizable
-terminal, fast, efficient
-showcase: backup, class checking

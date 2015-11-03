@@ -11,4 +11,6 @@ Presentation
 ===
 
 Daily life: open up libreoffice writer and stea:
-Package management: open up software manager, install gparted through apt-get
+Package management: open up software manager, install gparted
+Distros: open up gparted, show the 3 different distros, shared home
+Desktop environment: switch to KDE
