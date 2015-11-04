@@ -1,0 +1,180 @@
+1. Basics
+===
+
+The command line (or terminal, or shell) starts off inside a directory. You can
+see what directory you're in by entering the command:
+
+    pwd
+
+This will return you a path of the form `/dir1/dir2/dir3`, where the last token
+(in this case, `dir3`) is your current, or "working" directory. This is
+analogous to using a file explorer and being inside a specific folder. The
+other parts of the path provides information on how to get to your current
+directory from the root directory, which is represented simply as a `/`. All
+directories have a path from the root to them.
+
+To navigate around, you want to list what is in your current directory first by
+typing:
+
+    ls
+
+This will list all files and directories in your current directory. To create a
+new directory, whose name happens to be "foo", you can use:
+
+    mkdir foo
+
+Now entering `ls` again will show a new directory foo. You can navigate into
+that new directory with:
+
+    cd foo
+
+This changes your current directory to foo. So far we've been dealing with
+directories, so how about we create a file, specifically a text file now?
+Enter:
+
+    echo "Hello, world!" > hello.txt
+
+This command creates a file called "hello.txt" in the current directory with
+the contents "Hello, world!". You can verify the content by exposing what's in
+the file, via `cat`:
+
+    cat hello.txt
+
+This should print out "Hello, world!".
+
+After learning the basics of navigation, you can achieve much more with some
+simple scripting techniques or clever use of command line features. For
+instance, this command creates 13 empty files, named from "a.txt" to "m.txt":
+
+    for x in {a..m}; do touch "$x.txt"; done
+
+Suppose you want to put all .txt files in a new directory "bar". You can
+achieve that with wildcards (the technical term is "globbing"):
+
+    mkdir bar
+    mv *.txt bar
+
+Now all of the text files are in bar:
+
+    ls bar
+
+
+2. Chaining utilities
+===
+
+Shell tools can be chained together to perform specific tasks. Suppose we want
+to generate a string of random characters, perhaps as a secure password. We can
+retrieve a stream of random bytes by inspecting the "/dev/urandom" file, which
+Linux provides for the generation of random data (NOTE: DO NOT RUN THIS
+PARTICULAR COMMAND; IT WILL PRODUCE A LOT OF STRANGE SYMBOLS):
+
+    cat /dev/urandom
+
+We can filter the output by chaining or "piping" it into another utility that
+specializes in character manipulation. In this case, we use `tr` to filter out
+all characters that aren't lower case letters (NOTE: this command will run
+forever unless you interrupt it with Ctrl+C):
+
+    cat /dev/urandom | tr -cd 'a-z'
+
+Take only the first, say, 16 bytes of it using `head`:
+
+    cat /dev/urandom | tr -cd 'a-z' | head -c 16
+
+This prints the random string on the same line as your next prompt. To fix
+that, use `echo` to make a newline after the command finishes:
+
+    cat /dev/urandom | tr -cd 'a-z' | head -c 16 ; echo
+
+Now you can vary the `tr` filter (using, say 'a-zA-Z0-9' for all alphanumeric
+characters) or the `head` count to generate the passwords you want.
+
+
+3. Other utilities
+===
+
+The shell comes with lots of interesting utilities. This shows the current date
+and time:
+
+    date
+
+You can see the date and time in, say, Japan with this:
+
+    TZ="Japan" date
+
+Need a calendar? Try:
+
+    cal
+    cal -3
+
+Other commands like `shuf` can shuffle the lines of a file, `sort` can sort
+lines, `bc` can act as a calculator, etc.
+
+
+4. SSH
+===
+
+In order to interact with remote Linux servers, SSH will be used a lot. What
+SSH does is it establishes a secure connection between you and the remote
+server, and exposes a shell in which you can control that server. The name is
+literally "secure shell".
+
+If you have a seasnet account:
+
+    ssh lnxsrv.seas.ucla.edu -l YOUR_USER_NAME
+
+After typing in the password, you're now logged into the seasnet account, and
+can manipulate files there or use their programs.
+
+SSH can actually be used for many things beyond just a making a shell. It can
+be used, for instance, as a SOCKS proxy for your browser, or even open a
+browser from the remote server itself. The latter is called X-forwarding, which
+can be achieved by:
+
+    ssh -X lnxsrv.seas.ucla.edu -l YOUR_USER_NAME
+
+Note the addition of the `-X` flag. Inside the server, enter:
+
+    firefox
+
+Eventually a firefox window will pop up, and it will be able to access websites
+as if you're sitting inside a seaslab.
+
+
+5. Applications of a Linux server
+===
+
+Having a Linux server allows you to do many different things.
+
+One of the most common use is for backups. From a Linux client and a Linux
+server, you can use `rsync` to sync a folder over to the server.
+
+Linux servers are also commonly used as webservers. There are *many* software
+that allows Linux to serve website, with the most popular being `apache`.
+
+Another application of a Linux server is torrenting. There are many things one
+can torrent (such as an ubuntu live CD image). One example command line
+BitTorrent application (can be installed via the package manager) is `deluge`.
+
+
+6. Networking
+===
+
+This part is just a bonus, demonstrating how easy it is to control networking
+via the command line.
+
+Suppose you have two hosts with IP addresses 1.2.3.4 and 4.3.2.1. Assuming
+they're in the same LAN (connected to the same router), or they're publically
+accessible, they can easily talk to and send data to each other.
+
+Say host A has a file "something.jpg" that host B wants. Host B can do this:
+
+    nc -l 8000 > something.jpg
+
+And host A can do this:
+
+    nc 4.3.2.1 8000 < something.jpg
+
+Then the data will be transfered from host A to host B. This isn't a lesson in
+networking, but with some knowledge in how networking works, Linux provides the
+tools to easily perform these kinds of tasks.
