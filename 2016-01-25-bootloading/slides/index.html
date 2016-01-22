@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Linux Users Group talk - Bootloading</title>
+
+        <meta charset="utf-8">
+        <meta name="description" content="Linux Users Group talk - Bootloading">
+        <meta name="author" content="Vincent Wong">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/moon.css" id="theme">
+    </head>
+
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section data-markdown><script type="text/template">
+_LUG@UCLA tech talk_
+---
+
+Bootloading - BIOS/UEFI
+===
+
+___Presented by Vincent Wong___
+
+lain@linux.ucla.edu
+                </script></section>
+                <section data-markdown><script type="text/template">
+Connect to the LAN
+---
+
+WiFi SSID: *Kanye's iPhone*
+
+These slides can then be accessed: `xxxx:8000`
+
+Follow along in the web tty by: `xxxx:8001`
+                </script></section>
+                <section data-markdown><script type="text/template">
+Booting
+---
+
+* You press power button --> kernel loads
+* Main stages:
+  * Power-on-self-test
+  * Bootloading
+                </script></section>
+                <section data-markdown><script type="text/template">
+Power-on-self-test
+---
+**POST**
+
+* Firmware (BIOS or UEFI) initializes components
+  * Memory, video, NIC, etc...
+* If problem found, firmware will beep or display errorr
+                </script></section>
+                <section data-markdown><script type="text/template">
+Bootloading
+---
+
+* Process of firmware executing **bootloader(s)** that eventually loads the operating system.
+* This is where traditional BIOS systems and UEFI systems differ the most
+                </script></section>
+                <section data-markdown><script type="text/template">
+Basic Input/Output System
+---
+**BIOS**
+
+* Handles POST and executing bootloader, and provides BIOS call interface
+  * But usually not relevant beyond booting
+* Not really a standard, more like a convention in IBM PC compatible computers
+                </script></section>
+                <section data-markdown><script type="text/template">
+BIOS booting overview
+---
+
+* Look for disks (CD/DVD, HDD, usb) that contain a bootable **MBR**
+  * User can configure which disk to try booting from first
+* If found, simply executes the code in the MBR
+                </script></section>
+                <section data-markdown><script type="text/template">
+Master Boot Record
+---
+**MBR**
+
+* A disk layout format
+  * i.e. how to lay out partitions
+* A convention for where to put bootloader code
+* The first 512 bytes (first sector) of disk
+                </script></section>
+                <section data-markdown><script type="text/template">
+Master Boot Record
+---
+**MBR**
+
+* Only supports **4** primary partitions, **2.2** TB disk
+* Bootloaders chain-load region between MBR and first partition, then into /boot/grub in a real partition
+
+<img src="static/mbr.png" height=225></img>
+<small>Credit: Rebecca “.bx” Shapiro</small>
+                </script></section>
+                <section data-markdown><script type="text/template">
+Demo
+---
+
+dd show mbr signature
+fdisk show start of partition 1
+dd show grub
+show /boot/grub
+                </script></section>
+                <section data-markdown><script type="text/template">
+Unified Extensible Firmware Interface
+---
+**UEFI**
+
+* Standard for firmware (not only for IBM PCs). The future.
+* Originally developed by Intel (EFI), now managed by committee (UEFI)
+* Macs use some hybrid abomination between EFI, UEFI, and something else
+                </script></section>
+                <section data-markdown><script type="text/template">
+UEFI booting overview
+---
+
+* Supports BIOS "legacy" booting from MBR disk
+  * But most often used with GPT-formatted disks
+* Looks for a "EFI system partition" within each disk, which contains bootloaders
+* Loads `/efi/boot/bootx64.efi` by default, but can be configured (more on this later)
+                </script></section>
+                <section data-markdown><script type="text/template">
+GUID Partition Table
+---
+**GPT**
+
+* Supports BIOS "legacy" booting from MBR disk
+  * But most often used with GPT-formatted disks
+* Looks for a "EFI system partition" within each disk, which contains bootloaders
+* Loads `/efi/boot/bootx64.efi` by default, but can be configured (more on this later)
+                </script></section>
+                <section data-markdown><script type="text/template">
+Features and Notes
+---
+                </script></section>
+                <section data-markdown><script type="text/template">
+Boot mode
+---
+
+* OSes are installed in UEFI or legacy mode
+* *Why this matters*: It affects how the distro makes itself bootable, by writing to MBR or by creating a new loader in the ESP
+* Possible to "convert" afterwards, if you're willing to do disk surgery
+                </script></section>
+                <section data-markdown><script type="text/template">
+Hybrid MBR
+---
+
+                </script></section>
+                <section data-markdown><script type="text/template">
+Pre-boot execution environment
+---
+**PXE**
+                </script></section>
+                <section data-markdown><script type="text/template">
+Additional reading
+---
+
+* https://www.happyassassin.net/2014/01/25/uefi-boot-how-does-that-actually-work-then/
+* http://www.cs.dartmouth.edu/~bx/blog/2015/09/03/a-toure-of-bootloading.html
+                </script></section>
+                <section data-markdown><script type="text/template">
+# Thanks for coming!
+
+linux.ucla.edu
+                </script></section>
+            </div>
+        </div>
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+        <script>
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+                transition: 'slide',
+                dependencies: [
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                ]
+            });
+        </script>
+    </body>
+</html>
