@@ -43,18 +43,9 @@ Booting
 ---
 
 * You press power button --> kernel loads
-* Main stages:
-  * Power-on-self-test
-  * Bootloading
-                </script></section>
-                <section data-markdown><script type="text/template">
-Power-on-self-test
----
-**POST**
-
-* Firmware (BIOS or UEFI) initializes components
-  * Memory, video, NIC, etc...
-* If problem found, firmware will beep or display errorr
+* First performs power-on-self-test (**POST**)
+  * Initializes hardware components, looks for problems
+* Then, firmware (BIOS xor UEFI) does bootloading
                 </script></section>
                 <section data-markdown><script type="text/template">
 Bootloading
@@ -62,8 +53,9 @@ Bootloading
 
 * Process of firmware executing **bootloader(s)** that eventually loads the operating system.
 * This is where traditional BIOS systems and UEFI systems differ the most
+* TODO: <insert quote about uefi xor bios>
                 </script></section>
-                <section data-markdown><script type="text/template">
+                <section data-markdown data-background="#2D6308"><script type="text/template">
 Basic Input/Output System
 ---
 **BIOS**
@@ -72,7 +64,7 @@ Basic Input/Output System
   * But usually not relevant beyond booting
 * Not really a standard, more like a convention in IBM PC compatible computers
                 </script></section>
-                <section data-markdown><script type="text/template">
+                <section data-markdown data-background="#2D6308"><script type="text/template">
 BIOS booting overview
 ---
 
@@ -80,7 +72,7 @@ BIOS booting overview
   * User can configure which disk to try booting from first
 * If found, simply executes the code in the MBR
                 </script></section>
-                <section data-markdown><script type="text/template">
+                <section data-markdown data-background="#2D6308"><script type="text/template">
 Master Boot Record
 ---
 **MBR**
@@ -90,7 +82,7 @@ Master Boot Record
 * A convention for where to put bootloader code
 * The first 512 bytes (first sector) of disk
                 </script></section>
-                <section data-markdown><script type="text/template">
+                <section data-markdown data-background="#2D6308"><script type="text/template">
 Master Boot Record
 ---
 **MBR**
@@ -101,23 +93,23 @@ Master Boot Record
 <img src="static/mbr.png" height=225></img>
 <small>Credit: Rebecca “.bx” Shapiro</small>
                 </script></section>
-                <section data-markdown><script type="text/template">
+                <section data-markdown data-background="#2D6308"><script type="text/template">
 Demo
----
+===
 
 dd show mbr signature
 fdisk show start of partition 1
 dd show grub
 show /boot/grub
                 </script></section>
-                <section data-markdown><script type="text/template">
+                <section data-markdown data-background="#634808"><script type="text/template">
 Unified Extensible Firmware Interface
 ---
 **UEFI**
 
 * Standard for firmware (not only for IBM PCs). The future.
 * Originally developed by Intel (EFI), now managed by committee (UEFI)
-* Macs use some hybrid abomination between EFI, UEFI, and something else
+* Macs use some hybrid abomination between EFI, UEFI, and their own thing
                 </script></section>
                 <section data-markdown><script type="text/template">
 UEFI booting overview
@@ -126,23 +118,28 @@ UEFI booting overview
 * Supports BIOS "legacy" booting from MBR disk
   * But most often used with GPT-formatted disks
 * Looks for a "EFI system partition" within each disk, which contains bootloaders
-* Loads `/efi/boot/bootx64.efi` by default, but can be configured (more on this later)
+* Loads `/efi/boot/bootx64.efi` by default
+* Settings configurable by OS (efibootmgr)
                 </script></section>
                 <section data-markdown><script type="text/template">
 GUID Partition Table
 ---
 **GPT**
 
-* Supports BIOS "legacy" booting from MBR disk
-  * But most often used with GPT-formatted disks
-* Looks for a "EFI system partition" within each disk, which contains bootloaders
-* Loads `/efi/boot/bootx64.efi` by default, but can be configured (more on this later)
+* New standard for laying out disk format
+* Supports a minimum of 128 partitions and 2^64 sectors of disk space
+* Practically limitless namespace ("GUIDs") for partition types
+* Redundant GPT header for recovery
                 </script></section>
                 <section data-markdown><script type="text/template">
+Demo!
+===
+                </script></section>
+                <section data-markdown data-background="#b5533c"><script type="text/template">
 Features and Notes
----
+===
                 </script></section>
-                <section data-markdown><script type="text/template">
+                <section data-markdown data-background="#b5533c"><script type="text/template">
 Boot mode
 ---
 
@@ -150,15 +147,30 @@ Boot mode
 * *Why this matters*: It affects how the distro makes itself bootable, by writing to MBR or by creating a new loader in the ESP
 * Possible to "convert" afterwards, if you're willing to do disk surgery
                 </script></section>
-                <section data-markdown><script type="text/template">
+                <section data-markdown data-background="#b5533c"><script type="text/template">
 Hybrid MBR
 ---
 
+* Contains an MBR and an ESP, can be booted by BIOS and UEFI
+  * GPT requires a "protective MBR"
+* Used by modern live CDs so distros can be installed in either mode
                 </script></section>
-                <section data-markdown><script type="text/template">
+                <section data-markdown data-background="#b5533c"><script type="text/template">
+Secure Boot
+---
+
+* Requires bootloaders in the ESP to be signed
+* Not actually Microsoft being evil, surprisingly
+* In 2016, most major distros have signed bootloaders (grub, shim)
+                </script></section>
+                <section data-markdown data-background="#b5533c"><script type="text/template">
 Pre-boot execution environment
 ---
 **PXE**
+
+* Bootloading from network card
+* Fetch kernel, partitions from local PXE server (no disk required!)
+* Implemented in UEFI, sometimes implemented by BIOS
                 </script></section>
                 <section data-markdown><script type="text/template">
 Additional reading
