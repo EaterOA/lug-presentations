@@ -407,25 +407,25 @@ body {
     color: #9df791;
 }
 .palette-green a {
-    color: #268bd2;
+    color: #25d125;
 }
 .palette-green a:hover {
     color: #78bae6;
 }
 .palette-green a:hover img {
-    border-color: #268bd2;
+    border-color: #25d125;
 }
 .palette-green .controls div.navigate-left, .palette-green .controls div.navigate-left.enabled {
-    border-right-color: #268bd2;
+    border-right-color: #25d125;
 }
 .palette-green .controls div.navigate-right, .palette-green .controls div.navigate-right.enabled {
-    border-left-color: #268bd2;
+    border-left-color: #25d125;
 }
 .palette-green .controls div.navigate-up, .palette-green .controls div.navigate-up.enabled {
-    border-bottom-color: #268bd2;
+    border-bottom-color: #25d125;
 }
 .palette-green .controls div.navigate-down, .palette-green .controls div.navigate-down.enabled {
-    border-top-color: #268bd2;
+    border-top-color: #25d125;
 }
 .palette-green .controls div.navigate-left.enabled:hover {
     border-right-color: #78bae6;
@@ -440,10 +440,10 @@ body {
     border-top-color: #78bae6;
 }
 .palette-green .progress span {
-    background: #268bd2;
+    background: #25d125;
 }
 .palette-green .slide-number {
-    color: #268bd2;
+    color: #25d125;
 }
 
 
@@ -467,25 +467,25 @@ body {
     color: #c4d1ed;
 }
 .palette-brown a {
-    color: #268bd2;
+    color: #d18925;
 }
 .palette-brown a:hover {
     color: #78bae6;
 }
 .palette-brown a:hover img {
-    border-color: #268bd2;
+    border-color: #d18925;
 }
 .palette-brown .controls div.navigate-left, .palette-brown .controls div.navigate-left.enabled {
-    border-right-color: #268bd2;
+    border-right-color: #d18925;
 }
 .palette-brown .controls div.navigate-right, .palette-brown .controls div.navigate-right.enabled {
-    border-left-color: #268bd2;
+    border-left-color: #d18925;
 }
 .palette-brown .controls div.navigate-up, .palette-brown .controls div.navigate-up.enabled {
-    border-bottom-color: #268bd2;
+    border-bottom-color: #d18925;
 }
 .palette-brown .controls div.navigate-down, .palette-brown .controls div.navigate-down.enabled {
-    border-top-color: #268bd2;
+    border-top-color: #d18925;
 }
 .palette-brown .controls div.navigate-left.enabled:hover {
     border-right-color: #78bae6;
@@ -500,10 +500,10 @@ body {
     border-top-color: #78bae6;
 }
 .palette-brown .progress span {
-    background: #268bd2;
+    background: #d18925;
 }
 .palette-brown .slide-number {
-    color: #268bd2;
+    color: #d18925;
 }
 
 
@@ -527,25 +527,25 @@ body {
     color: #c4d1ed;
 }
 .palette-red a {
-    color: #268bd2;
+    color: #d1252b;
 }
 .palette-red a:hover {
     color: #78bae6;
 }
 .palette-red a:hover img {
-    border-color: #268bd2;
+    border-color: #d1252b;
 }
 .palette-red .controls div.navigate-left, .palette-red .controls div.navigate-left.enabled {
-    border-right-color: #268bd2;
+    border-right-color: #d1252b;
 }
 .palette-red .controls div.navigate-right, .palette-red .controls div.navigate-right.enabled {
-    border-left-color: #268bd2;
+    border-left-color: #d1252b;
 }
 .palette-red .controls div.navigate-up, .palette-red .controls div.navigate-up.enabled {
-    border-bottom-color: #268bd2;
+    border-bottom-color: #d1252b;
 }
 .palette-red .controls div.navigate-down, .palette-red .controls div.navigate-down.enabled {
-    border-top-color: #268bd2;
+    border-top-color: #d1252b;
 }
 .palette-red .controls div.navigate-left.enabled:hover {
     border-right-color: #78bae6;
@@ -560,8 +560,8 @@ body {
     border-top-color: #78bae6;
 }
 .palette-red .progress span {
-    background: #268bd2;
+    background: #d1252b;
 }
 .palette-red .slide-number {
-    color: #268bd2;
+    color: #d1252b;
 }
