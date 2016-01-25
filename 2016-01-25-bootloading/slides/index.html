@@ -53,7 +53,6 @@ Bootloading
 
 * Process of firmware executing **bootloader(s)** that eventually loads the operating system.
 * This is where traditional BIOS systems and UEFI systems differ the most
-* TODO: <insert quote about uefi xor bios>
                 </script></section>
                 <section data-markdown data-state="palette-brown"><script type="text/template">
 Basic Input/Output System
@@ -97,10 +96,7 @@ Master Boot Record
 Demo
 ===
 
-dd show mbr signature
 fdisk show start of partition 1
-dd show grub
-show /boot/grub
                 </script></section>
                 <section data-markdown data-state="palette-green"><script type="text/template">
 Unified Extensible Firmware Interface
@@ -119,7 +115,7 @@ UEFI booting overview
   * But most often used with GPT-formatted disks
 * Looks for a "EFI system partition" within each disk, which contains bootloaders
 * Loads `/efi/boot/bootx64.efi` by default
-* Settings configurable by OS (efibootmgr)
+* Configurable UEFI boot manager (like a boot menu)
                 </script></section>
                 <section data-markdown data-state="palette-green"><script type="text/template">
 GUID Partition Table
@@ -144,7 +140,7 @@ Boot mode
 ---
 
 * OSes are installed in UEFI or legacy mode
-* *Why this matters*: It affects how the distro makes itself bootable, by writing to MBR or by creating a new loader in the ESP
+* *Why this matters*: It affects how the distro makes itself bootable, by writing to MBR or by creating a new loader in the ESP (and configuring the boot manager)
 * Possible to "convert" afterwards, if you're willing to do disk surgery
                 </script></section>
                 <section data-markdown data-state="palette-red"><script type="text/template">
@@ -161,16 +157,7 @@ Secure Boot
 
 * Requires bootloaders in the ESP to be signed
 * Not actually Microsoft being evil, surprisingly
-* In 2016, most major distros have signed bootloaders (grub, shim)
-                </script></section>
-                <section data-markdown data-state="palette-red"><script type="text/template">
-Pre-boot execution environment
----
-**PXE**
-
-* Bootloading from network card
-* Fetch kernel, partitions from local PXE server (no disk required!)
-* Implemented in UEFI, sometimes implemented by BIOS
+* shim as a weird hack for signed 1st stage loader for grub
                 </script></section>
                 <section data-markdown><script type="text/template">
 Additional reading
@@ -178,6 +165,8 @@ Additional reading
 
 * https://www.happyassassin.net/2014/01/25/uefi-boot-how-does-that-actually-work-then/
 * http://www.cs.dartmouth.edu/~bx/blog/2015/09/03/a-toure-of-bootloading.html
+* http://www.linux-kvm.org/downloads/lersek/ovmf-whitepaper-c770f8c.txt
+* http://www.rodsbooks.com/refind/secureboot.html
                 </script></section>
                 <section data-markdown><script type="text/template">
 # Thanks for coming!
