@@ -35,8 +35,9 @@ sudo apt-get install nginx
 sudo apt-get install postgresQL
 sudo apt-get install varnish
 sudo apt-get install python-pip python3-pip
-sudo pip3 install Flask flask-sqlalchemy jinja2 werkzeug markupsafe itsdangerous
-sudo pip install Flask flask-sqlalchemy jinja2 werkzeug markupsafe itsdangerous
+sudo apt-get install postgresl-server-dev-all
+sudo pip3 install Flask flask-sqlalchemy jinja2 werkzeug markupsafe itsdangerous psycopg2
+sudo pip install Flask flask-sqlalchemy jinja2 werkzeug markupsafe itsdangerous psycopg2
 
 Webapps
 ---

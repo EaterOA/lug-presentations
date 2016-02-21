@@ -104,17 +104,15 @@ __Flask__ is a Python webapp framework. Why use a framework?
 Basic app
 ---
 
-<pre><code class="hljs" data-trim contenteditable>
-from flask import Flask
+    from flask import Flask
 
-app = Flask(__name__)
+    app = Flask(__name__)
 
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
+    @app.route('/')
+    def hello_world():
+        return 'Hello World!'
 
-app.run(host='0.0.0.0')
-</code></pre>
+    app.run(host='0.0.0.0')
                 </script></section>
                 <section data-markdown data-state="palette-green"><script type="text/template">
 Basic app
@@ -138,40 +136,115 @@ Templating
 
 app.py
 
-<pre><code class="hljs" data-trim contenteditable>
-import random
+    from flask import Flask
+    from flask import render_template
 
-from flask import Flask
-from flask import render_template
+    app = Flask(__name__)
 
-app = Flask(__name__)
+    @app.route('/')
+    def index():
+        return "Hello world!"
 
-@app.route('/')
-def index():
-    return "Hello world!"
+    visits = 0
+    @app.route('/<name>')
+    def visit(name):
+        global visits
+        visits += 1
+        return render_template('visit.html', name=name,
+                               visits=visits)
 
-@app.route('/&lt;name&gt;')
-def rand(name):
-    num = random.randint(0,999)
-    return render_template('rand.html', name=name, num=num)
-
-app.run(host='0.0.0.0')
-</code></pre>
+    app.run(host='0.0.0.0')
                 </script></section>
                 <section data-markdown data-state="palette-green"><script type="text/template">
 Templating
 ---
 
-templates/rand.html
+templates/visit.html
 
-<pre><code class="hljs" data-trim contenteditable>
-&lt;html&gt;
-&lt;title&gt;{{ name }}&lt;/title&gt;
-&lt;body&gt;
-    Your number is: {{ num }}
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+    <html>
+    <title>{{ name }}</title>
+    <body>
+        <p>You have visited <b>{{ num }}</b> times</p>
+    </body>
+    </html>
+                </script></section>
+                <section data-markdown data-state="palette-green"><script type="text/template">
+Database
+===
+                </script></section>
+                <section data-markdown data-state="palette-green"><script type="text/template">
+Database
+---
+
+You want persistence in your app. Luckily, Flask-SQLAlchemy provides a very easy interface for interacting with a local database.
+
+We'll start with a simple sqlite database
+                </script></section>
+                <section data-markdown data-state="palette-green"><script type="text/template">
+Database
+---
+
+add this to app.py first
+
+    from flask.ext.sqlalchemy import SQLAlchemy
+
+    app.config['SQLALCHEMY_DATABASE_URI'] =\
+        'sqlite:////root/app.db'
+
+    db = SQLAlchemy(app)
+
+    class Page(db.Model):
+        name = db.Column(db.Text(), primary_key=True)
+        visits = db.Column(db.Integer)
+
+    db.create_all()
+                </script></section>
+                <section data-markdown data-state="palette-green"><script type="text/template">
+Database
+---
+
+then, modify visit function
+
+    @app.route('/<name>')
+    def visit(name):
+        p = db.session.query(Page).get(name)
+        if not p:
+            p = Page(name=name, visits=0)
+            db.session.add(p)
+            db.session.flush()
+        p.visits += 1
+        db.session.commit()
+        return render_template('visit.html', name=name,
+                               visits=p.visits)
+                </script></section>
+                <section data-markdown data-state="palette-green"><script type="text/template">
+Postgresql
+---
+
+SQLite is great for prototyping, but slow in production. Let's use Postgresql instead.
+
+On the commandline, enter:
+
+    service postgresql start
+    sudo -u postgres createuser -dP myapp
+    sudo -u postgres createdb -O myapp myappdb
+                </script></section>
+                <section data-markdown data-state="palette-green"><script type="text/template">
+Postgresql
+---
+
+modify app.py
+
+    app.config['SQLALCHEMY_DATABASE_URI'] =\
+        'postgresql://myapp:myapp@localhost/myappdb'
+                </script></section>
+                <section data-markdown><script type="text/template">
+HTTP Server
+---
+
+* <stuff>
+
+Materials for this talk will be posted shortly
                 </script></section>
                 <section data-markdown><script type="text/template">
 Additional reading
