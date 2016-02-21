@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Server From Scratch</title>
+
+        <meta charset="utf-8">
+        <meta name="description" content="Server From Scratch">
+        <meta name="author" content="Vincent Wong">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/whatever.css" id="theme">
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+    </head>
+
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section data-markdown><script type="text/template">
+_LUG+ACM tech talk_
+---
+
+Server From Scratch
+===
+
+Presented by<br>
+_Vincent Wong_, _Soomin Jeong_
+                </script></section>
+                <section data-markdown><script type="text/template">
+WiFi
+---
+
+SSID: ...
+Password: ...
+
+These slides can then be accessed: `xxxx:8000`
+
+Follow along in the web tty by: `xxxx:8080`
+                </script></section>
+                <section data-markdown><script type="text/template">
+Basic website
+---
+
+Your laptop makes an HTTP request. The webserver responds with an html page (or cat pictures).
+
+_That's it. Simple._<br>
+___<span class="fragment">... and boring</span>___
+                </script></section>
+                <section data-markdown><script type="text/template">
+Web applications
+---
+
+What we're making are *webapps*, not static websites
+
+Webapps are Facebook, Twitter, Amazon. They _change_, usually they're interactive
+                </script></section>
+                <section data-markdown><script type="text/template">
+Web stack
+---
+
+The __web stack__ is everything inbetween you interacting with the webapp and the server responding with content
+                </script></section>
+                <section data-transition="none" data-markdown><script type="text/template">
+Web stack
+---
+
+<div class="overlap-area">
+    <img src="static/webstack1.png"></img>
+    <img class="fragment overlap" src="static/webstack2.png"></img>
+    <img class="fragment overlap" src="static/webstack3.png"></img>
+    <img class="fragment overlap" src="static/webstack4.png"></img>
+</div>
+                </script></section>
+                <section data-markdown data-state="palette-green"><script type="text/template">
+Basic App
+===
+                </script></section>
+                <section data-markdown data-state="palette-green"><script type="text/template">
+Getting into your server
+---
+
+Use the IP/password combination to SSH in
+
+* Linux/Mac:
+  * `ssh root@<ip>`
+* Windows:
+  * Use putty or Mobaxterm
+                </script></section>
+                <section data-markdown data-state="palette-green"><script type="text/template">
+We'll be using Flask
+---
+
+__Flask__ is a Python webapp framework. Why use a framework?
+
+* _Routing_
+* _Templating_
+* _Database integration_
+* _Request/response inspection
+                </script></section>
+                <section data-markdown data-state="palette-green"><script type="text/template">
+Basic app
+---
+
+<pre><code class="hljs" data-trim contenteditable>
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello_world():
+    return 'Hello World!'
+
+app.run(host='0.0.0.0')
+</code></pre>
+                </script></section>
+                <section data-markdown data-state="palette-green"><script type="text/template">
+Basic app
+---
+
+Run with `python3 app.py`
+
+Open a browser, browse to `<ip>:5000`
+
+_You now have a webapp_
+                </script></section>
+                <section data-markdown data-state="palette-green"><script type="text/template">
+Templating
+---
+
+A _template_ allows you construct html pages for each request, depending on the user and current state.
+                </script></section>
+                <section data-markdown><script type="text/template">
+# Thanks for coming!
+                </script></section>
+            </div>
+        </div>
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+        <script>
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+                transition: 'fade',
+                dependencies: [
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                ]
+            });
+        </script>
+    </body>
+</html>
