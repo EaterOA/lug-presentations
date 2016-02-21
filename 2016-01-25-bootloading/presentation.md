@@ -1,21 +1,19 @@
 Preparation
 ===
 
-* start gotty server
+Start gotty server
 
-    # start a tmux session under gotty
-    gotty tmux new -A -s gotty
+    # start gotty with tmux
+    ./gotty -p 8080 tmux new -A -s gotty
 
-    # on another terminal
+    # on another terminal, attach
     tmux new -A -s gotty
 
-    # to control tmux
-
-* start python http.server
+Start python http.server
 
     python3 http.server 8000
 
-* start qemu server
+Start qemu server
 
     ./run-server
 
@@ -25,34 +23,44 @@ Presentation
 ===
 
 BIOS demo
+---
 
-    # MBR magic
+MBR magic
+
     sudo tail -c +511 /dev/sda | head -c 2 | hexdump -C
 
-    # find GRUB
+Find GRUB
+
     sudo head -c 512 /dev/sda | strings
 
-    # show first partiton offset
+Show first partiton offset
+
     sudo parted -l
 
 UEFI demo
+---
 
-    # show uefi existence
+Show uefi existence
+
     ls /sys/firmware/efi
 
-    # show uefi loader
+Show uefi loader
+
     lsblk
     cd /boot/efi
     tree
 
-    # show boot entries
+Show boot entries
+
     sudo efibootmgr -v
 
-    # remove Ubuntu and go to shell
+Remove Ubuntu and go to shell
+
     sudo efibootmgr -B -b 0000
     sudo efibootmgr -v
     sudo reboot
 
-    # remake Ubuntu
+Remake Ubuntu
+
     sudo efibootmgr -c -p 1 -d /dev/vda -L Ubuntu -l "\efi\ubuntu\grubx64.efi"
     sudo reboot
