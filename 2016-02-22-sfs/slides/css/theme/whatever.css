@@ -108,7 +108,7 @@ body {
 }
 
 .reveal li {
-    margin: 0.50em 0;
+    margin: 0.15em 0;
 }
 
 .reveal ol > li {
@@ -467,7 +467,7 @@ body {
     color: #cdeda6;
 }
 .palette-brown pre code:not(.hljs), .palette-brown code:not(.hljs) {
-    color: #c4d1ed;
+    color: #ff9900;
 }
 .palette-brown a {
     color: #d18925;
@@ -527,7 +527,7 @@ body {
     color: #f2bcdd;
 }
 .palette-red pre code:not(.hljs), .palette-red code:not(.hljs) {
-    color: #c4d1ed;
+    color: #ff5050;
 }
 .palette-red a {
     color: #d1252b;

@@ -53,7 +53,7 @@ ___<span class="fragment">... and boring</span>___
 Web applications
 ---
 
-What we're making are *webapps*, not static websites
+What we're making are _webapps_, not static websites
 
 Webapps are Facebook, Twitter, Amazon. They _change_, usually they're interactive
                 </script></section>
@@ -61,7 +61,7 @@ Webapps are Facebook, Twitter, Amazon. They _change_, usually they're interactiv
 Web stack
 ---
 
-The __web stack__ is everything inbetween you interacting with the webapp and the server responding with content
+The _web stack_ is everything inbetween you interacting with the webapp and the server responding with content
                 </script></section>
                 <section data-transition="none" data-markdown><script type="text/template">
 Web stack
@@ -75,7 +75,7 @@ Web stack
 </div>
                 </script></section>
                 <section data-markdown data-state="palette-green"><script type="text/template">
-Basic App
+Application
 ===
                 </script></section>
                 <section data-markdown data-state="palette-green"><script type="text/template">
@@ -122,7 +122,7 @@ Run with `python3 app.py`
 
 Open a browser, browse to `<ip>:5000`
 
-_You now have a webapp_
+___You now have a webapp___
                 </script></section>
                 <section data-markdown data-state="palette-green"><script type="text/template">
 Templating
@@ -134,7 +134,7 @@ A _template_ allows you construct html pages for each request, depending on the 
 Templating
 ---
 
-app.py
+`app.py`
 
     from flask import Flask
     from flask import render_template
@@ -159,7 +159,7 @@ app.py
 Templating
 ---
 
-templates/visit.html
+`templates/visit.html`
 
     <html>
     <title>{{ name }}</title>
@@ -168,23 +168,23 @@ templates/visit.html
     </body>
     </html>
                 </script></section>
-                <section data-markdown data-state="palette-green"><script type="text/template">
+                <section data-markdown data-state="palette-red"><script type="text/template">
 Database
 ===
                 </script></section>
-                <section data-markdown data-state="palette-green"><script type="text/template">
+                <section data-markdown data-state="palette-red"><script type="text/template">
 Database
 ---
 
-You want persistence in your app. Luckily, Flask-SQLAlchemy provides a very easy interface for interacting with a local database.
+You want persistence in your app. Luckily, __SQLAlchemy__ provides a very easy interface for interacting with a local database.
 
-We'll start with a simple sqlite database
+We'll start with a simple __SQLite__ database
                 </script></section>
-                <section data-markdown data-state="palette-green"><script type="text/template">
+                <section data-markdown data-state="palette-red"><script type="text/template">
 Database
 ---
 
-add this to app.py first
+add this to `app.py` first
 
     from flask.ext.sqlalchemy import SQLAlchemy
 
@@ -199,11 +199,11 @@ add this to app.py first
 
     db.create_all()
                 </script></section>
-                <section data-markdown data-state="palette-green"><script type="text/template">
+                <section data-markdown data-state="palette-red"><script type="text/template">
 Database
 ---
 
-then, modify visit function
+then, modify the `visit` function
 
     @app.route('/<name>')
     def visit(name):
@@ -217,11 +217,11 @@ then, modify visit function
         return render_template('visit.html', name=name,
                                visits=p.visits)
                 </script></section>
-                <section data-markdown data-state="palette-green"><script type="text/template">
+                <section data-markdown data-state="palette-red"><script type="text/template">
 Postgresql
 ---
 
-SQLite is great for prototyping, but slow in production. Let's use Postgresql instead.
+SQLite is great for prototyping, but slow in production. Let's use __Postgresql__ instead.
 
 On the commandline, enter:
 
@@ -229,30 +229,92 @@ On the commandline, enter:
     sudo -u postgres createuser -dP myapp
     sudo -u postgres createdb -O myapp myappdb
                 </script></section>
-                <section data-markdown data-state="palette-green"><script type="text/template">
+                <section data-markdown data-state="palette-red"><script type="text/template">
 Postgresql
 ---
 
-modify app.py
+modify `app.py`
 
     app.config['SQLALCHEMY_DATABASE_URI'] =\
         'postgresql://myapp:myapp@localhost/myappdb'
                 </script></section>
-                <section data-markdown><script type="text/template">
+                <section data-markdown data-state="palette-brown"><script type="text/template">
+HTTP Server
+===
+                </script></section>
+                <section data-markdown data-state="palette-brown"><script type="text/template">
 HTTP Server
 ---
 
-* <stuff>
+Flask uses __Werkzeug__ to process HTTP requests. This has several disadvantages:
 
-Materials for this talk will be posted shortly
+* Slow
+* Likely insecure
+* Only works with Python
+* Hard to configure
+* etc...
+                </script></section>
+                <section data-markdown data-state="palette-brown"><script type="text/template">
+HTTP Server
+---
+
+Instead, we'll use __Nginx__ to serve as the _reverse proxy_ for our application.
+
+    service nginx start
+                </script></section>
+                <section data-markdown data-state="palette-brown"><script type="text/template">
+Nginx
+---
+
+modify `/etc/nginx/sites-available/default`
+
+    location / {
+        proxy_pass http://localhost:5000;
+    }
+                </script></section>
+                <section data-markdown data-state="palette-brown"><script type="text/template">
+Nginx
+---
+
+modify `app.py`
+
+    if __name__ == '__main__':
+        app.run()
+                </script></section>
+                <section data-markdown><script type="text/template">
+Closing
+===
+                </script></section>
+                <section data-markdown><script type="text/template">
+Frontend
+---
+
+This talk mainly focused on web backend and architecture.
+
+Frontend is an important component of an app. MVC, Websockets, etc.
+
+In fact, your frontend can even be a mobile app.
+                </script></section>
+                <section data-markdown><script type="text/template">
+Advanced backend
+---
+
+There are a _bajillion_ things you can still do
+
+* HTTPS (_letsencrypt_)
+* Caching (_memcached_)
+* Load balancing (_Varnish_)
+* Deployment (_Docker_)
                 </script></section>
                 <section data-markdown><script type="text/template">
 Additional reading
 ---
 
-* <stuff>
+* http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
+* http://nginx.org/en/docs/beginners_guide.html
+* http://facebook.github.io/react/
 
-Materials for this talk will be posted shortly
+Materials for this talk will be posted
                 </script></section>
                 <section data-markdown><script type="text/template">
 # Thanks for coming!
