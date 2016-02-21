@@ -98,7 +98,7 @@ __Flask__ is a Python webapp framework. Why use a framework?
 * _Routing_
 * _Templating_
 * _Database integration_
-* _Request/response inspection
+* _Request/response inspection_
                 </script></section>
                 <section data-markdown data-state="palette-green"><script type="text/template">
 Basic app
@@ -131,6 +131,55 @@ Templating
 ---
 
 A _template_ allows you construct html pages for each request, depending on the user and current state.
+                </script></section>
+                <section data-markdown data-state="palette-green"><script type="text/template">
+Templating
+---
+
+app.py
+
+<pre><code class="hljs" data-trim contenteditable>
+import random
+
+from flask import Flask
+from flask import render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return "Hello world!"
+
+@app.route('/&lt;name&gt;')
+def rand(name):
+    num = random.randint(0,999)
+    return render_template('rand.html', name=name, num=num)
+
+app.run(host='0.0.0.0')
+</code></pre>
+                </script></section>
+                <section data-markdown data-state="palette-green"><script type="text/template">
+Templating
+---
+
+templates/rand.html
+
+<pre><code class="hljs" data-trim contenteditable>
+&lt;html&gt;
+&lt;title&gt;{{ name }}&lt;/title&gt;
+&lt;body&gt;
+    Your number is: {{ num }}
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                </script></section>
+                <section data-markdown><script type="text/template">
+Additional reading
+---
+
+* <stuff>
+
+Materials for this talk will be posted shortly
                 </script></section>
                 <section data-markdown><script type="text/template">
 # Thanks for coming!

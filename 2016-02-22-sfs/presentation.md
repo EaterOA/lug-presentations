@@ -28,6 +28,9 @@ Confirm that all of the above work (load in browser)
 Presentation
 ===
 
+Preparation
+---
+
 sudo apt-get install nginx
 sudo apt-get install postgresQL
 sudo apt-get install varnish
@@ -35,26 +38,15 @@ sudo apt-get install python-pip python3-pip
 sudo pip3 install Flask flask-sqlalchemy jinja2 werkzeug markupsafe itsdangerous
 sudo pip install Flask flask-sqlalchemy jinja2 werkzeug markupsafe itsdangerous
 
+Webapps
+---
+
 - A server is just a computer sitting somewhere
-- How you access these servers is via ssh or ftp
-- SSH allows you to control the server through a command line interface
+  - How you access these servers is via ssh or ftp
+  - SSH allows you to control the server through a command line interface
 
-{explain how to ssh using an ip and a password}
-
-    ssh root@<ip>
-
-Flask
-===
-
-- Explain why flask
---- set up advanced routing schemes
---- templating
---- access databases
---- arbitrary code (necessary for webapps)
-
-- make a templates folder
-
-    render_template('templatename.html')
+- People deploy apps these days with both PaaS and servers
+  - Using a server gives you full control and you can do much more
 
 Nginx
 ===
